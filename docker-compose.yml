@@ -1,28 +1,28 @@
-version: '3.7'
+version: '3.7' # Specifies the version of the Docker Compose file format.
 
 services:
     api:
-        container_name: api
-        image: nathanaelfr/simpleapistudent:v4.0
+        container_name: api # Specifies the name of the container.
+        image: nathanaelfr/simpleapistudent:v4.0 # Specifies the image to use for the container.
         networks:
-            - app-network
+            - app-network # Specifies the network to which the container should be connected, here 'app-network'.
         depends_on:
-            - database
-        environment:
+            - database # Specifies the service on which the container depends, here the postgres database.
+        environment:    # Specifies the environment variables to set in the container.  
             - DB_HOST=mypostgresdb
             - DB_PORT=5432
             - DB_NAME=db
             - DB_USER=usr
             - DB_PWD=pwd
     database:
-        container_name: mypostgresdb
-        image: nathanaelfr/tp1:v2.0
+        container_name: mypostgresdb 
+        image: nathanaelfr/postgresdb:v2.0
         environment:
             POSTGRES_DB: db
             POSTGRES_USER: usr
             POSTGRES_PASSWORD: pwd
         volumes:
-            - db-data:/var/lib/postgresql/data
+            - db-data:/var/lib/postgresql/data # Specifies the volumes to mount in the container.
         networks:
             - app-network
 
@@ -30,16 +30,16 @@ services:
         container_name: server
         image: nathanaelfr/proxy:v2.0
         environment:
-            - BACKEND_HOST=api
+            - BACKEND_HOST=api 
         ports:
-            - "8085:80"
+            - "8085:80" # Specifies the ports to expose on the host machine.
         networks:
             - app-network
         depends_on:
             - api
 
-networks:
-    app-network:
+networks: # Specifies the networks to create, here 'app-network'.
+    app-network: 
 
-volumes:
+volumes: # Specifies the volumes to create, here 'db-data'.
     db-data: 
