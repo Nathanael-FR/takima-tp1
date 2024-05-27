@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+    api:
+        container_name: api
+        image: nathanaelfr/simpleapistudent:v4.0
+        networks:
+            - app-network
+        depends_on:
+            - database
+        environment:
+            - DB_HOST=mypostgresdb
+            - DB_PORT=5432
+            - DB_NAME=db
+            - DB_USER=usr
+            - DB_PWD=pwd
+    database:
+        container_name: mypostgresdb
+        image: nathanaelfr/tp1:v2.0
+        environment:
+            POSTGRES_DB: db
+            POSTGRES_USER: usr
+            POSTGRES_PASSWORD: pwd
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        networks:
+            - app-network
+
+    server:
+        container_name: server
+        image: nathanaelfr/proxy:v2.0
+        environment:
+            - BACKEND_HOST=api
+        ports:
+            - "8085:80"
+        networks:
+            - app-network
+        depends_on:
+            - api
+
+networks:
+    app-network:
+
+volumes:
+    db-data: 

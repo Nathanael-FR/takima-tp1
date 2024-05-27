@@ -1,0 +1,15 @@
+FROM eclipse-temurin:17-jdk-alpine
+# Build Main.java with JDK
+
+# Copy Main.java to the container
+COPY Main.java /usr/src/
+
+# Compile Main.java
+RUN javac /usr/src/Main.java
+
+FROM eclipse-temurin:17-jre-alpine
+# Copy resource from previous stage
+COPY --from=0 /usr/src/Main.class .
+
+# Run the Main.class
+CMD ["java", "Main"]

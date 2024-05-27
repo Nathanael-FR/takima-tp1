@@ -1,0 +1,26 @@
+# Build stage
+FROM maven:3.8.6-amazoncorretto-17 AS myapp-build
+
+# Définir le répertoire de travail
+ENV MYAPP_HOME /opt/myapp
+WORKDIR $MYAPP_HOME
+
+# Copier les fichiers du projet Maven dans le conteneur
+COPY pom.xml .
+COPY src ./src
+
+# Construire le projet Maven
+RUN mvn package -DskipTests
+
+# Étape de production
+FROM amazoncorretto:17
+
+# Définir le répertoire de travail
+ENV MYAPP_HOME /opt/myapp
+WORKDIR $MYAPP_HOME
+
+# Copier le fichier JAR construit à partir de l'étape précédente dans le conteneur
+COPY --from=myapp-build $MYAPP_HOME/target/*.jar $MYAPP_HOME/myapp.jar
+
+# Définir le point d'entrée pour exécuter l'application
+ENTRYPOINT java -jar myapp.jar
