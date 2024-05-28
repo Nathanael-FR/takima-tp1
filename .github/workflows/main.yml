@@ -25,7 +25,7 @@ jobs:
           cd api/simple-api-student-main
           mvn clean verify sonar:sonar \
             -Dsonar.projectKey=myorgatakima_takima \
-            -Dsonar.organization=myorga \
+            -Dsonar.organization=myorgatakima \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
