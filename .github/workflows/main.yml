@@ -27,7 +27,7 @@ jobs:
             -Dsonar.projectKey=myorgatakima_takima \
             -Dsonar.organization=myorgatakima \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             --file pom.xml
 
   build-and-push-docker-image:
