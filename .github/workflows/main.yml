@@ -21,4 +21,6 @@ jobs:
           distribution: 'adopt'  # specify the distribution here
 
       - name: Build and test with Maven
-        run: mvn clean verify
+        run: |
+          cd api/simple-api-student-main
+          mvn clean verify
