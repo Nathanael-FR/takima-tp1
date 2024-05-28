@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
+          distribution: 'adopt'  # specify the distribution here
 
       - name: Build and test with Maven
         run: mvn clean verify
