@@ -24,10 +24,10 @@ jobs:
         run: |
           cd api/simple-api-student-main
           mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=myorgatakima \
+            -Dsonar.projectKey=myorgatakima_takima \
             -Dsonar.organization=myorga \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
 
   build-and-push-docker-image:
