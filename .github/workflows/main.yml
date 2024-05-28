@@ -23,7 +23,12 @@ jobs:
       - name: Build and test with Maven
         run: |
           cd api/simple-api-student-main
-          mvn clean verify
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=myorgatakima \
+            -Dsonar.organization=myorga \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
+
 
   build-and-push-docker-image:
     needs: test-backend
