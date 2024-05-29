@@ -1,2 +1,4 @@
 data/
 .github/workflows/main.yml
+ansible/
+rsa_key/
