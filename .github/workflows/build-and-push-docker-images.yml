@@ -26,6 +26,7 @@ jobs:
         with:
           context: ./api/simple-api-student-main
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:${{ github.run_id }}
+          push: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push database image
         uses: docker/build-push-action@v3
@@ -39,3 +40,4 @@ jobs:
         with:
           context: ./front
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:${{ github.run_id }}
+          push: ${{ github.ref == 'refs/heads/main' }}
