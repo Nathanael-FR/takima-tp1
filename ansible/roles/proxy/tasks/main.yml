@@ -1,0 +1,21 @@
+# proxy/tasks/main.yml
+
+- name: Pull Docker image
+  docker_image:
+    name: nathanaelfr/tp-devops-httpd:latest
+    source: pull
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+- name: Run Docker container in the Docker network
+  docker_container:
+    name: myHttpdServer
+    image: nathanaelfr/tp-devops-httpd:latest
+    state: started
+    networks:
+      - name: app-network
+    ports:
+      - "80:80"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  

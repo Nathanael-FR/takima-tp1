@@ -9,8 +9,8 @@ spring:
     open-in-view: true
   datasource:
     url: jdbc:postgresql://${POSTGRE_DB:mypostgresdb}:${POSTGRE_PORT:5432}/{POSTGRE_DB:db}
-    username: usr
-    password: pwd
+    username: ${POSTGRE_USER:usr}
+    password: ${POSTGRE_PWD:pwd}
     driver-class-name: org.postgresql.Driver
 management:
  server:

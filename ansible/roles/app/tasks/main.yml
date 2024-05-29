@@ -1,0 +1,18 @@
+# app/tasks/main.yml
+---
+- name: Pull Docker image
+  docker_image:
+    name: nathanaelfr/tp-devops-simple-api:latest
+    source: pull
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+- name: Run Docker container in the Docker network
+  docker_container:
+    name: myStudentApi
+    image: nathanaelfr/tp-devops-simple-api:latest
+    state: started
+    networks:
+      - name: app-network
+  vars:
+    ansible_python_interpreter: /usr/bin/python3

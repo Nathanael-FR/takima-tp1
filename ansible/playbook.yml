@@ -1,0 +1,20 @@
+# playbook.yml
+
+# Define the playbook to be executed on all hosts
+- hosts: all
+
+  # Disable gathering facts to speed up the execution
+  gather_facts: false
+  
+  # Enable privilege escalation (become) to execute tasks with root privileges
+  become: true
+
+  # Specify the roles to be executed
+  roles:
+    # Execute the Docker role
+    - docker
+    - network
+    - database
+    - app
+    - proxy
+    
