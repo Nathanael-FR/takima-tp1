@@ -33,4 +33,5 @@ jobs:
         DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
         
       run: |
-        ansible-playbook docker/tasks/main.yml -i inventory.yml
+        cd ansible
+        ansible-playbook -i inventories/setup.yml playbook.yml
