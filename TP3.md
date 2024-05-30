@@ -232,3 +232,46 @@ These roles are designed to deploy different parts of our "Dockerised" applicati
 * The "app" role downloads the Docker image of our API application and launches a container named "myStudentApi" using that image. This container is also connected to the "app-network" network.
 The "proxy" role downloads the Docker image from our proxy server and launches a container named "myHttpdServer" using that image. This container is connected to the "app-network" network and expose the 80 port on the remote ansible server to enable access to our app.
 
+## Full CI/CD pipelin
+
+```
+name: Deploy with Ansible
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install Ansible
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible
+
+    - name: Install required collections
+      run: |
+        ansible-galaxy collection install community.general
+
+    - name: Run Ansible Playbook
+      env:
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        
+      run: |
+        cd ansible
+        ansible-playbook -i inventories/setup.yml playbook.yml
+```
+
+We add this workflow `deploy.yml` to import the Docker credentials to the environement variables and deploy the app using Ansible.
