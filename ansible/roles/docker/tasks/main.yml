@@ -1,10 +1,10 @@
 # docker/tasks/main.yml
 
-# Load environment variables from .env file
-- name: Load environment variables from .env file
-  community.general.env:
-    state: present
-    envfile: "{{ playbook_dir }}/.env"
+# # Load environment variables from .env file
+# - name: Load environment variables from .env file
+#   community.general.env:
+#     state: present
+#     envfile: "{{ playbook_dir }}/.env"
 
 # Install device-mapper-persistent-data
 - name: Install device-mapper-persistent-data
